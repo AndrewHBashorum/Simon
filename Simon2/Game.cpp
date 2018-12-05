@@ -6,9 +6,10 @@
 
 
 Game::Game() :
-	m_window{ sf::VideoMode{ 800, 600, 32 }, "Simon" },
+	m_window{ sf::VideoMode{ 800, 600, 32 }, "Sfml Game" },
 	m_exitGame{ false },//when true game will exit
-	m_redSqaure{ sf::Vector2f{200.0f, 200.0f} }
+	m_redSqaure{ sf::Vector2f{200.0f, 200.0f} },
+	m_yellowSqure{ sf::Vector2f{200.0f, 200.0f}},
 {
 	setupButtons();
 
