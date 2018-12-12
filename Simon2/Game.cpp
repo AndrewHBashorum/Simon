@@ -6,10 +6,13 @@
 
 
 Game::Game() :
-	m_window{ sf::VideoMode{ 800, 600, 32 }, "Sfml Game" },
+	m_window{ sf::VideoMode{ 800, 600, 32 }, "Simon" },
 	m_exitGame{ false },//when true game will exit
-	m_redSqaure{ sf::Vector2f{200.0f, 200.0f} },
-	m_yellowSqure{ sf::Vector2f{200.0f, 200.0f}},
+	m_redSquare{ sf::Vector2f{ 200, 200 } },
+	m_yellowSquare{ sf::Vector2f{ 200.0f, 200.0f } },
+	m_greenSquare{ sf::Vector2f{ 200, 200 } },
+	m_blueSquare{ sf::Vector2f(200, 200),
+}
 {
 	setupButtons();
 
@@ -49,10 +52,11 @@ void Game::processEvents()
 	sf::Event event;
 	while (m_window.pollEvent(event))
 	{
-		if ( sf::Event::Closed == event.type) // window message
+		if (sf::Event::Closed == event.type) // window message
 		{
 			m_window.close();
 		}
+
 		if (sf::Event::KeyPressed == event.type) //user key press
 		{
 			if (sf::Keyboard::Escape == event.key.code)
@@ -81,16 +85,79 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::Black);
-	m_window.draw(m_redSqaure);
-
+	m_window.draw(m_greenSquare);
+	m_window.draw(m_titleText);
+	m_window.draw(m_redSquare);
+	m_window.draw(m_yellowSquare);
+	m_window.draw(m_blueSquare);
 	m_window.display();
+
+	m_window.draw(m_instructionsTextBlue);
+	m_window.draw(m_instructionsTextGreen);
+	m_window.draw(m_instructionsTextRed);
+	m_window.draw(m_instructionsTextYellow);
+	m_window.draw(m_statusText);
 }
+void Game::setupText()
+{
+	if (m_impactFont.loadFromFile("assests/fonts/impact.ttf"))
+	{
+		std::cout << "font loaded ok" << std::endl;
+	}
+	m_titleText.setFont(m_impactFont);
+	m_titleText.setFillColor(WHITE);
+	m_titleText.setCharacterSize(64);
+	m_titleText.setPosition(50, 30);
+	m_titleText.setString("S I M O N");
+	// set up green message
+
+
+	// setup green message easy game 8
+	m_instructionsTextGreen.setFont(m_impactFont);
+	m_instructionsTextGreen.setFillColor(GREEN);
+	m_instructionsTextGreen.setCharacterSize(32);
+	m_instructionsTextGreen.setPosition(50, 100);
+	m_instructionsTextGreen.setString("Press green for \n an easy game");
+	// set red text for medium game 16
+	m_instructionsTextRed.setFont(m_impactFont);
+	m_instructionsTextRed.setFillColor(RED);
+	m_instructionsTextRed.setCharacterSize(32);
+	m_instructionsTextRed.setPosition(50, 200);
+	m_instructionsTextRed.setString("Press red for \n a medium game");
+	// setup yellow text  for hard game 32
+	m_instructionsTextYellow.setFont(m_impactFont);
+	m_instructionsTextYellow.setFillColor(YELLOW);
+	m_instructionsTextYellow.setCharacterSize(32);
+	m_instructionsTextYellow.setPosition(50, 300);
+	m_instructionsTextYellow.setString("Press yellow for \n a hard game");
+	// setup status font
+	m_instructionsTextBlue.setFont(m_impactFont);
+	m_instructionsTextBlue.setFillColor(BLUE);
+	m_instructionsTextBlue.setCharacterSize(32);
+	m_instructionsTextBlue.setPosition(50, 400);
+	m_instructionsTextBlue.setString("Press blue to \nexit game");
+	m_statusText.setFont(m_impactFont);
+	m_statusText.setFillColor(WHITE);
+	m_statusText.setCharacterSize(22);
+	m_statusText.setPosition(500, 453);
+	m_statusText.setString("Test"); // no status on menu screen
+}
+
+
+// set up green message
+
 
 void Game::setupButtons()
 {
-	m_redSqaure.setFillColor(sf::Color::Red);
-	m_redSqaure.setPosition(sf::Vector2f{ 570, 30 });
-
+	m_redSquare.setFillColor(sf::Color::Red);
+	m_greenSquare.setFillColor(GREEN);
+	m_greenSquare.setPosition(sf::Vector2f(350, 30));
+	m_redSquare.setFillColor(RED);
+	m_redSquare.setPosition(sf::Vector2f(570, 30));
+	m_yellowSquare.setFillColor(YELLOW);
+	m_yellowSquare.setPosition(sf::Vector2f(350, 250));
+	m_blueSquare.setFillColor(BLUE);
+	m_blueSquare.setPosition(sf::Vector2f(570, 250));
 }
 
 /// <summary>
